@@ -1,11 +1,9 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
-  mode: 'development',
   entry: path.resolve(__dirname, '../src/main.ts'),
   output: {
     filename: '[name].[hash:8].js',
@@ -64,25 +62,14 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
-          'sass-loader',
-        ],
-      },
+
       {
         test: /\.vue$/,
         loader: 'vue-loader',
       },
       {
         test: /\.(tsx?|jsx?)$/,
+        exclude: /node_modules/,
         // 默认会调用 @babel/core
         use: 'babel-loader',
       },
@@ -95,12 +82,8 @@ module.exports = {
       template: path.resolve(__dirname, '../public/index.html'),
       filename: 'index.html',
     }),
-    new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].css',
-    }),
   ],
   resolve: {
-    extensions: ['jsx', 'tsx', 'js', 'ts'],
+    extensions: ['*','.jsx', '.tsx', '.js', '.ts', '.vue'],
   },
 }
