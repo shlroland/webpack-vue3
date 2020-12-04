@@ -4,6 +4,7 @@ const { HotModuleReplacementPlugin } = require('webpack')
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
